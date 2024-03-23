@@ -14,11 +14,13 @@ func _ready():
 	screensize = get_viewport().get_visible_rect().size
 	$Player.screensize = screensize
 	$Player.hide()
-	new_game()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if playing and get_tree().get_nodes_in_group("coins").size() == 0
+		level += 1
+		time_left += 5
+		spawn_coins()
 	
 func new_game():
 	playing = true
