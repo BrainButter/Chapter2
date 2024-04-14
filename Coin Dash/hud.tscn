@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://brt76jdvapx5e"]
+[gd_scene load_steps=4 format=3 uid="uid://brt76jdvapx5e"]
 
 [ext_resource type="FontFile" uid="uid://cwvno88d7u6xl" path="res://assets/Kenney Bold.ttf" id="1_30tpm"]
+[ext_resource type="Script" path="res://hud.gd" id="1_ravfv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3hdgq"]
 
 [node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_ravfv")
 
 [node name="CoinDash" type="Label" parent="."]
 anchors_preset = 14
@@ -15,12 +17,63 @@ offset_top = -11.5
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_outline_size = 4
 theme_override_fonts/font = ExtResource("1_30tpm")
 text = "Coin Dash Bitch"
 label_settings = SubResource("LabelSettings_3hdgq")
 horizontal_alignment = 1
 metadata/_edit_group_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TopHud" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Score" type="Label" parent="TopHud"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("1_30tpm")
+text = "0"
+label_settings = SubResource("LabelSettings_3hdgq")
+horizontal_alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Time" type="Label" parent="TopHud"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("1_30tpm")
+text = "0"
+label_settings = SubResource("LabelSettings_3hdgq")
+horizontal_alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_30tpm")
+text = "Start"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="StartButton" to="." method="_on_button_pressed"]
